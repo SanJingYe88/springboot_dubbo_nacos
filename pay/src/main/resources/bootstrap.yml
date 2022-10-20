@@ -1,0 +1,22 @@
+server:
+  port: 8003  # 项目端口
+
+spring:
+  application:
+    name: pay # 项目名称
+  cloud:
+    nacos:  # nacos配置
+      config:
+        server-addr: 127.0.0.1:8848 # nacos地址和端口
+dubbo:  # dubbo配置
+  application:
+    name: d-pay  # dubbo服务名称
+  protocol:
+    port: 20882 # dubbo服务端口, 当前服务所暴露出来的端口，以供消费者访问
+    name: dubbo # dubbo服务协议名称
+  registry: # dubbo使用的注册中心
+    address: nacos://${spring.cloud.nacos.config.server-addr} # dubbo注册中心地址
+  scan:
+    base-packages: it.com.service
+  consumer:
+    check: false
